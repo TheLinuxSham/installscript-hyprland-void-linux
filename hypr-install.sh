@@ -8,6 +8,10 @@ hypr_dir=$HOME/void/hyprland-void/
 
 pkg_list=("hyprland" "xdg-desktop-portal-hyprland" "hyprpaper")
 
+# set max cpu count for compiling
+max_cpu_count=$(nproc)
+
+
 clear
 echo "$user_input" | sudo -S xbps-install -Suy
 echo "$user_input" | sudo -S xbps-install -y git
@@ -57,7 +61,7 @@ for pkg in "${pkg_list[@]}"; do
   if [ ! "$result" == "$pkg" ]; then
     echo "Installing now: $pkg"
     cd "$void_pkgs_dir"
-    ./xbps-src -j8 pkg "$pkg"
+    ./xbps-src -j$max_cpu_count pkg "$pkg"
     sudo -S xbps-install -y -R hostdir/binpkgs "$pkg"
   fi
 done
