@@ -9,6 +9,7 @@ hypr_dir=$HOME/void/hyprland-void/
 pkg_list=("hyprland" "xdg-desktop-portal-hyprland" "hyprpaper")
 
 clear
+echo "$user_input" | sudo -S xbps-install -Suy
 echo "$user_input" | sudo -S xbps-install -y git
 
 # check for dir
@@ -19,7 +20,7 @@ fi
 # check for void-packages and updates
 if [ ! -d "$void_pkgs_dir" ]; then
   cd "$parent_dir"
-  git clone https://github.com/void-linux/void-packages
+  git clone --depth 1 https://github.com/void-linux/void-packages
   cd "$void_pkgs_dir"
   ./xbps-src binary-bootstrap
 else
